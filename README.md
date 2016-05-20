@@ -15,16 +15,17 @@ install.packages("fastmatch", repos="http://cran.uk.r-project.org/", dependencie
 install.packages("~/landscapeR_0.1.0.tar.gz", repos = NULL, type="source")
 
 ## Load packages
-require(raster)
-require(fastmatch)
-require(landscapeR)
+library(raster)
+library(fastmatch)
+library(landscapeR)
 ```
 
 Here it follows a set of examples, using landscapeR functions to generate various landscape configurations. Let's start loading the required packages and making an empty landscape (by transforming a matrix into a geographical obkect):
 ```{r, message=FALSE, warning=FALSE}
 library(landscapeR)
+
+## Create an empty landscape
 library(raster)
-library(fastmatch)
 m = matrix(0, 33, 33)
 r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 ```
