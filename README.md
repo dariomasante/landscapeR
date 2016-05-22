@@ -14,9 +14,7 @@ install.packages("fastmatch", repos="http://cran.uk.r-project.org/", dependencie
 ## Install landscapeR (full path to the file, if not in the R working directory)
 install.packages("~/landscapeR_0.1.0.tar.gz", repos = NULL, type="source")
 
-## Load packages
-library(raster)
-library(fastmatch)
+## Load package
 library(landscapeR)
 ```
 
@@ -53,10 +51,18 @@ plot(rr)
 ```
 
 ### `makeClass`
-`makeClass` generates a group of patches, as specified by its arguments. For instance:
-```{r}
+`makeClass` generates a group of patches, as specified by its arguments. Example:
+```{r, warning=FALSE}
 num = 5
 size = 15
+rr = makeClass(r, num, size)
+plot(rr)
+```
+
+Patches are allowed to be contiguous, so they may appear as a single patch in those instances:
+```{r, warning=FALSE}
+num = 75
+size = 10
 rr = makeClass(r, num, size)
 plot(rr)
 ```
@@ -71,7 +77,7 @@ plot(rr)
 ```
 
 ### `expandClass`
-Expand (and shrinks) classes starting from an existing landscape.
+Expand (and shrinks) classes starting from an existing landscape. Building on the previous:
 ```{r}
 rr = expandClass(rr, 1, 250)
 plot(rr)
@@ -82,6 +88,7 @@ This function can be used to mimic shapes, by providing a skeleton:
 m[,17] = 1
 r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 plot(r)
-rr = expandClass(r, 1, 100)
+rr = expandClass(r, 1, 200)
 plot(rr)
 ```
+
