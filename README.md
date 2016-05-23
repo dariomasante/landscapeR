@@ -23,7 +23,9 @@ install.packages("~/landscapeR_0.1.0.tar.gz", repos = NULL, type="source")
 library(landscapeR)
 ```
 
-Here it follows a set of examples, using landscapeR functions to generate various landscape configurations. Let's start loading the required packages and making an empty landscape (by transforming a matrix into a geographical obkect):
+Here it follows a set of examples, using landscapeR functions to generate various landscape configurations. 
+Similar examples are showed in the [vignette](http://htmlpreview.github.com/?https://github.com/dariomasante/landscapeR/blob/master/landscapeR.html).
+Let's start loading the required packages and making an empty landscape (by transforming a matrix into a geographical obkect):
 ```{r, message=FALSE, warning=FALSE}
 library(landscapeR)
 
