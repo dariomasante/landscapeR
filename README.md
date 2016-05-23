@@ -17,7 +17,7 @@ install.packages("raster", repos="http://cran.uk.r-project.org/", dependencies=T
 install.packages("fastmatch", repos="http://cran.uk.r-project.org/", dependencies=T, clean=T)
 
 ## Install landscapeR (full path to the file, if not in the R working directory)
-install.packages("~/landscapeR_0.1.0.tar.gz", repos = NULL, type="source")
+install.packages("~/landscapeR_1.0.0.tar.gz", repos = NULL, type="source")
 
 ## Load package
 library(landscapeR)
