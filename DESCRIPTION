@@ -1,0 +1,19 @@
+Package: landscapeR
+Type: Package
+Title: Categorical Landscape Simulation Facilities
+Version: 1.1.0
+Date: 2016-05-24
+Authors@R: c(person(given = "Dario", family = "Masante", role = c("aut", "cre"), email = "dmasan@ceh.ac.uk"))
+URL: https://cran.r-project.org/web/packages/landscapeR
+BugReports: https://github.com/dariomasante/landscapeR/issues
+Imports: raster
+Suggests:
+    knitr,
+    rmarkdown
+Description: This set of functions allows the simulation of categorical maps from scratch in a geographically referenced landscape or the manipulation of existing ones. The basic algorithm currently implemented uses a simple agent style/cellular automata growth model, with no rules (apart from areas of exclusion), expanding more or less circularly (cells are picked at the edges randomly).
+License: GPL (>= 3)
+LazyLoad: yes
+LazyData: TRUE
+NeedsCompilation: no
+RoxygenNote: 5.0.1
+VignetteBuilder: knitr
