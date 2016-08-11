@@ -6,7 +6,6 @@ makeClass(r, 5, 15)
 makeClass(r, 5, 15)
 makeClass(r, 1, 1)
 makeClass(r, 2, 15, pts=c(1,60))
-makeClass(r, 2, 15, pts=c(1,5000)) ## throws warning
 makeClass(r, 2, c(15,150), pts=c(1,500))
 makeClass(r, 2, c(15,5000), pts=c(1,500)) ## throws warnings
 makeClass(r, 5, 15, val=5)
@@ -17,10 +16,11 @@ makeClass(r, 2, 15, pts=c(1))
 makeClass(r, 2, c(15,150,300), pts=c(1,500))
 makeClass(r, 5, 15, bgr=5)
 makeClass(r, 5, 15, bgr=5, val=5)
+makeClass(r, 2, 15, pts=c(1,5000))
 
 
 ## FIX
-makeClass(r, 5, 0) ## Set warning at least
+makeClass(r, 5, 0) ## Set warning at least?
 makeClass(r, 5, NA) ## Return sensible error
 
 ## Create a class of three patches of given size at three corners of the spatial context

@@ -13,7 +13,7 @@ geometry: margin=2cm
 ---
 
 This is a quick tutorial to the use of package "landscapeR". In the following exercise, a landscape will be created from scratch and functionalities available in landscapeR will be used to simulate patterns of patches of different classes (could be habitats, land use types, etc.).
-All basic GIS operations are handled by the [`raster`](https://cran.r-project.org/web/packages/raster/index.html) package.
+All basic GIS operations are handled by the [`raster`](https://cran.r-project.org/package=raster) package.
 
 Let's start loading the package and making an empty landscape (by transforming a matrix into a geographical object):
 
@@ -34,20 +34,18 @@ plot(rr)
 
 Within this catchment, let's place randomly 10 patches of class "5", randomly sized between 10 and 50 cells. Background where patches must be placed is the catchment, with value 1, therefore bgr=1:
 ```{r}
-patchSize = sample(10:50, 10)
-newVal = 5
-rr = makeClass(rr, 10, size=patchSize, val=newVal, rast=TRUE, bgr=1)
+patchSize = sample(10:50, 5)
+rr = makeClass(rr, 5, size=patchSize, val=5, rast=TRUE, bgr=1)
 plot(rr)
 ```
 
-Now let's add a particular feature (could be a lake) and build a stream out of it:
+Now let's add a linear feature:
 ```{r, warning=FALSE}
-rr = makePatch(rr, 30, rast=TRUE, val=2, bgr=1)
-rr = expandClass(rr, 2, 50)
+rr = makeLine(rr, size=100, val=2, convol=0.05, rast=TRUE, bgr=1)
 plot(rr)
 ```
 
-Centred on a given point, let's populate some of the remainder on a gradient:
+##Centred on a given point, let's populate some of the remainder on a gradient:
 
 
 

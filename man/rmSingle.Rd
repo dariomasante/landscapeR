@@ -15,7 +15,8 @@ rmSingle(rst, rm = TRUE)
 a raster without single tones cells. If \code{rm=TRUE}, a vector of numbers identifying the single tones cells.
 }
 \description{
-Patch creation algorithm can occasionally leave single cells scattered within patches. This function reduces the "salt-pepper" effect, identifying or correcting those cells.
+Patch creation algorithm can occasionally leave single cells scattered within patches.
+This function reduces the "salt-pepper" effect, identifying or correcting those cells.
 % ADD FUNCTIONALITY NOT ONLY SINGLES BUT USER DEFINED SIZE
 }
 \examples{

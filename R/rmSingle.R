@@ -1,6 +1,7 @@
 #' Remove single tones from patches
 #'
-#' @description Patch creation algorithm can occasionally leave single cells scattered within patches. This function reduces the "salt-pepper" effect, identifying or correcting those cells.
+#' @description Patch creation algorithm can occasionally leave single cells scattered within patches.
+#' This function reduces the "salt-pepper" effect, identifying or correcting those cells.
 #' % ADD FUNCTIONALITY NOT ONLY SINGLES BUT USER DEFINED SIZE
 #' @param rst input raster landscape.
 #' @param rm logical, if TRUE returns the raster without single tones cells, if FALSE a vector of numbers identifying the single tones cells.

@@ -2,7 +2,7 @@
 #'
 #' @param context Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).
 #' @param size integer. Size of the patch to be generated, as number of raster cells.
-#' @param spt integer or matrix. The seed point location around which the patch is generated (a random point is given by default). It can be an integer, as index of the cell in the raster, or a two columns matrix indicating x and y coordinates (or an integar vector of length 2).
+#' @param spt integer or matrix. The seed point location around which the patch is generated (a random point is given by default). It can be an integer, as index of the cell in the raster, or a two columns matrix indicating x and y coordinates (an integer vector of length 2 is accepted too).
 #' @param bgr integer. Value of background cells, where a patch can be generated (default is zero). Cells/classes which cannot be changed must have a different value.
 #' @param edge logical. Should the vector of edge cells of the patch be returned?
 #' @param rast logical. If TRUE returns a Raster object, otherwise a vector of cell numbers where the patch occurs
@@ -41,8 +41,10 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
       spt <- .toCellIndex(context, spt)
     }
     mtx <- t(raster::as.matrix(context))
+    warningSwitch <- TRUE
   } else {
     mtx <- context
+    warningSwitch <- FALSE
   }
   bgrCells <- which(mtx == bgr)
   if(length(bgrCells) == 0){
@@ -52,10 +54,15 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     warning('Patch size bigger than available background.')
   }
   spt <- ifelse(is.null(spt), sample(bgrCells, 1), spt)
+  if(spt > length(context) | spt < 1 | spt %% 1 != 0){
+    stop('Seed point not valid. Must be an integer between 1 and the total number of cells of "context".')
+  }
   if(mtx[spt] != bgr){
     wp <- spt
     spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
-    warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
+    if(warningSwitch){
+      warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
+    }
   }
   mtx[spt] <- val
   edg <- spt
@@ -64,7 +71,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   cg = 1
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
-    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}; {d <- fastmatch::fmatch(ad, bgrCells, nomatch = 0);ad <- bgrCells[d]}
+    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}. It was {d <- fastmatch::fmatch(ad, bgrCells, nomatch = 0);ad <- bgrCells[d]}
     ad <- ad[mtx[ad] == bgr]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
@@ -90,7 +97,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     idx <- which(mtx == val)
     return(list(inner = idx, edge = edg))
   } else {
-    return( which(mtx == val))
+    return( bgrCells[mtx[bgrCells] == val] )
   }
 }
 

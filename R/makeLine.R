@@ -1,6 +1,7 @@
 #' Create a linear patch
 #'
-#' @description Create a linear patch
+#' @description Create a linear patch, setting direction and convolution. The higher the convolution degree, the weaker the
+#' linear shape (and direction).
 #' % ADD set length instead of size
 #' % FIX values of direction at 0 and 360
 #' % FIX values of convol of 1 and 0
@@ -10,7 +11,7 @@
 #' between 0 and 1, where 0 is no convolution at all (basically a straight line) and 1 is maximum convolution (i.e. tends to form a circular patch).
 #' @return A vector of raster cell numbers, or a RasterLayer object if \code{rast=TRUE}. If \code{edge=TRUE} a
 #' list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
-#' @details For any values of \code{convol} > 0.8, no big differences are observed noted. Also direction is prograssively lost
+#' @details For any values of \code{convol} > 0.8, no big differences are observed noted. Also direction is progressively lost
 #' as convolution increases.
 #' @examples
 #' library(raster)
@@ -164,7 +165,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   if(convolution < 0 | convolution > 1){
     stop('convolution must be a value between 0 and 1')
   }
-  if(convolution == 1)
+  #if(convolution == 1)
   smpSD <- seq(0, 180, 0.2)
   dlt <- sapply(smpSD, function(x){
     q <- stats::qnorm(convolution / 2, direction, x)

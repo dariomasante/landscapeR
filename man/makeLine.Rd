@@ -32,13 +32,14 @@ A vector of raster cell numbers, or a RasterLayer object if \code{rast=TRUE}. If
 list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
 }
 \description{
-Create a linear patch
+Create a linear patch, setting direction and convolution. The higher the convolution degree, the weaker the
+linear shape (and direction).
 % ADD set length instead of size
 % FIX values of direction at 0 and 360
 % FIX values of convol of 1 and 0
 }
 \details{
-For any values of \code{convol} > 0.8, no big differences are observed noted. Also direction is prograssively lost
+For any values of \code{convol} > 0.8, no big differences are observed noted. Also direction is progressively lost
 as convolution increases.
 }
 \examples{

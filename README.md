@@ -97,8 +97,20 @@ This function can be used to mimic shapes, by providing a skeleton:
 ```{r}
 m[,17] = 1
 r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+par(mfrow=c(1,2))
 plot(r)
 rr = expandClass(r, 1, 200)
 plot(rr)
+```
+
+### `makeLine`
+Create a linear patch, setting direction and convolution. The higher the convolution degree, the weaker the
+linear shape (and direction).
+```{r}
+par(mfrow=c(1,2))
+rr = makeLine(r, size=50, direction=90, rast=TRUE, spt=545, convol=0.25)
+plot(rr)
+
+plot(makeLine(r, size=50, direction=90, rast=TRUE, spt=545, convol=0.6))
 ```
 
