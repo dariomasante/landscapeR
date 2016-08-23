@@ -57,7 +57,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   if(spt > length(context) | spt < 1 | spt %% 1 != 0){
     stop('Seed point not valid. Must be an integer between 1 and the total number of cells of "context".')
   }
-  if(mtx[spt] != bgr){
+  if(.subset(mtx, spt) != bgr){ #mtx[spt] != bgr
     wp <- spt
     spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
     if(warningSwitch){
@@ -72,7 +72,8 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
     ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}. It was {d <- fastmatch::fmatch(ad, bgrCells, nomatch = 0);ad <- bgrCells[d]}
-    ad <- ad[mtx[ad] == bgr]
+    ad <- ad[.subset(mtx, ad) == bgr] #ad[mtx[ad] == bgr]
+    ad <- ad[!is.na(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
@@ -97,7 +98,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     idx <- which(mtx == val)
     return(list(inner = idx, edge = edg))
   } else {
-    return( bgrCells[mtx[bgrCells] == val] )
+    return( bgrCells[.subset(mtx, bgrCells) == val] ) #bgrCells[mtx[bgrCells] == val]
   }
 }
 
@@ -123,9 +124,10 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     rr <- pt - (cc-1) * dim1
   }
   ad <- c(rr-1, rr+1, rr, rr, cc, cc, cc-1, cc+1)
-  ad[ad <= 0 | c(ad[1:4] > dim1, ad[5:8] > dim2)] <- NA
-  ad <- ad[1:4] + (ad[5:8]-1)*dim1
-  ad[!is.na(ad)]
+  #ad[ad <= 0 | c(ad[1:4] > dim1, ad[5:8] > dim2)] <- NA
+  ad[ad <= 0 | c(.subset(ad, 1:4) > dim1, .subset(ad, 5:8) > dim2)] <- NA
+  #ad <- ad[1:4] + (ad[5:8]-1) * dim1
+  ad <- .subset(ad, 1:4) + (.subset(ad, 5:8) - 1) * dim1
 }
 
 ## Converts matrix indexes into indexes suitable for the transposed matrix (NOT USED)

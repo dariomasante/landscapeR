@@ -24,8 +24,9 @@
 #' plot(rr)
 #' @export
 makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast=TRUE, val=1){
-  if(length(size) != npatch){ stop('Number of patches not matching length of size vector') }
-  if(npatch > length(context)) { stop('Higher number of patches than landscape cells') }
+  if(length(npatch) != 1){ stop('A single integer value must be provided to argument "npatch"') }
+  if(length(size) != npatch & length(size) > 1){ stop('Number of patches not matching the length of size vector') }
+  if(npatch <= 0 | npatch > length(context)) { stop('Invalid number of patches required (e.gf. zero, or more than landscape cells') }
   if(rast==TRUE & edge==TRUE){
     edge=FALSE
     warning('Edge output reset to FALSE. edge=TRUE only when raster output is not required (i.e. rast=FALSE)')

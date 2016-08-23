@@ -40,9 +40,10 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
   while(cg < size){
     ad <- .contigCells(pts, dim1, dim2)
     ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}
-    ad <- ad[m[ad] == bgr]
+    ad <- ad[.subset(m, ad) == bgr] # ad[m[ad] == bgr]
+    ad <- ad[!is.na(ad)]
     if(length(ad) == 0) {
-      edg <- edg[edg!=pts]
+      edg <- edg[edg != pts]
       if(length(edg) <= 1) {
         if(cg == 1){
           warning('Expanding classes do not touch shrinking classes. Input raster returned')

@@ -39,7 +39,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   if(size > length(bgrCells)){
     warning('Patch size bigger than available landscape.')
   }
-  if(mtx[spt] != bgr){
+  if(.subset(mtx, spt) != bgr){
     wp <- spt
     spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
     warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
@@ -54,7 +54,8 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   }
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
-    ad <- ad[mtx[ad] == bgr]
+    ad <- ad[.subset(mtx, ad) == bgr]
+    ad <- ad[!is.na(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
@@ -109,7 +110,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   if(size > length(bgrCells)){
     warning('Patch size bigger than available landscape.')
   }
-  if(mtx[spt] != bgr){
+  if(.subset(mtx, spt) != bgr){
     wp <- spt
     spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
     warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
@@ -123,7 +124,8 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   }
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
-    ad <- ad[mtx[ad] == bgr]
+    ad <- ad[.subset(mtx, ad) == bgr]
+    ad <- ad[!is.na(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
@@ -172,7 +174,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     lowQ <- direction - 45
     return(abs(lowQ - q))
   })
-  smpSD[which.min(dlt)]
+  .subset(smpSD, which.min(dlt))
 }
 
 .direct <- function(spt, ad, degree, SD){

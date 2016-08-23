@@ -1,15 +1,15 @@
 ---
-title: "A tutorial to 'landscapeR'"
+title: "A brief tutorial to 'landscapeR' functions"
 author: "Dario Masante"
 date: '`r Sys.Date()`'
 output:
-  pdf_document:
-    fig_height: 4
-  html_document:
-    toc: yes
   rmarkdown::html_vignette:
     toc: yes
 geometry: margin=2cm
+vignette: |
+  %\VignetteIndexEntry{A brief introduction to 'landscapeR' functions}   
+  %\VignetteEngine{knitr::rmarkdown}   
+  %\VignetteEncoding{UTF-8} 
 ---
 
 This is a quick tutorial to the use of package "landscapeR". In the following exercise, a landscape will be created from scratch and functionalities available in landscapeR will be used to simulate patterns of patches of different classes (could be habitats, land use types, etc.).

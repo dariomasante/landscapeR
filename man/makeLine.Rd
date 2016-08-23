@@ -17,7 +17,7 @@ makeLine(context, size, direction = NULL, convol = 0.5, spt = NULL,
 \item{convol}{numeric. Level of convolution to be assigned to the patch (default is \code{convol=0.5}). A value
 between 0 and 1, where 0 is no convolution at all (basically a straight line) and 1 is maximum convolution (i.e. tends to form a circular patch).}
 
-\item{spt}{integer or matrix. The seed point location around which the patch is generated (a random point is given by default). It can be an integer, as index of the cell in the raster, or a two columns matrix indicating x and y coordinates (or an integar vector of length 2).}
+\item{spt}{integer or matrix. The seed point location around which the patch is generated (a random point is given by default). It can be an integer, as index of the cell in the raster, or a two columns matrix indicating x and y coordinates (an integer vector of length 2 is accepted too).}
 
 \item{bgr}{integer. Value of background cells, where a patch can be generated (default is zero). Cells/classes which cannot be changed must have a different value.}
 

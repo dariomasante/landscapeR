@@ -3,17 +3,12 @@ title: "Introduction to 'landscapeR'"
 author: "Dario Masante"
 date: '`r Sys.Date()`'
 output:
-  pdf_document:
-    fig_height: 4
-    fig_width: 4
-  html_document:
-    toc: yes
   rmarkdown::html_vignette:
     toc: yes
 geometry: margin=2cm
-vignette: >
-  %\VignetteIndexEntry{Overview of package 'bnspatial'}  
-  %\VignetteEngine{knitr::rmarkdown}  
+vignette: |
+  %\VignetteIndexEntry{Overview of package 'landscapeR'}   
+  %\VignetteEngine{knitr::rmarkdown}   
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -93,5 +88,14 @@ m[,17] <- 1
 r <- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 plot(r)
 rr <- expandClass(r, 1, 200)
+plot(rr)
+```
+
+### `makeLine`
+Creates a linear feature, at a given convolution level and direction in degrees (zero is North)
+```{r}
+m[] <- 0
+r <- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+rr = makeLine(r, size=50, val=2, convol=0.05, spt=545, rast=TRUE)
 plot(rr)
 ```

@@ -39,9 +39,9 @@ rmSingle <- function(rst, rm = TRUE){
     ad[ad	 <= 0 | c(ad[1:4] > dim1, ad[5:8] > dim2)] <- NA
     ad <- ad[5:8] + (ad[1:4]-1)*dim2
     ad <- ad[!is.na(ad)]
-    if(all(vval[ad] != vval[pt])){
+    if(all(.subset(vval, ad) != .subset(vval, pt))){
       if(rm == TRUE){
-        vval[pt] <- sample(vval[ad], 1)
+        vval[pt] <- sample(.subset(vval, ad), 1)
       } else {
         singles <- c(singles, pt)
       }
