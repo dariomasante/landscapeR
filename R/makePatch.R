@@ -1,4 +1,4 @@
-#' Create a single patch
+#' Create a single patch. Note that function \code{makeClass} should be used preferably (see details).
 #'
 #' @param context Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).
 #' @param size integer. Size of the patch to be generated, as number of raster cells.
@@ -11,6 +11,7 @@
 #' list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
 #' @details The patch is created starting from the seed point and iteratively sampling randomly neighbouring cells at the edge of the patch.
 #' There is a tolerance of +/- 3 cells from the patch size declared in \code{size} argument.
+#' Note that \code{makeClass} should be used preferably when creating a single patch, as better error and exception handling is provided for there.
 #' @examples
 #' library(raster)
 #' mtx = matrix(0, 33, 33)
@@ -48,7 +49,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
   bgrCells <- which(mtx == bgr)
   if(length(bgrCells) == 0){
-    stop('No background cells available, landscape full. Try checking argument "bgr".')
+    stop('No background cells available with value ', bgr, '. Try checking argument "bgr".')
   }
   if(size > length(bgrCells)){
     warning('Patch size bigger than available background.')
@@ -77,7 +78,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
-        warning('Patch size reached from seed point ', spt, ' was ', cg, ' . No further background cells available for this patch.')
+        warning('Patch size reached from seed point ', spt, ' was ', cg, ' . No further background cells available for the patch.')
         break
       }
       spt <- sample(edg, 1)

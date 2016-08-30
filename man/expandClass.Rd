@@ -9,7 +9,7 @@ expandClass(context, class, size, bgr = 0, pts = NULL)
 \arguments{
 \item{context}{Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).}
 
-\item{class}{(or patch),}
+\item{class}{The raster value of class (or patch) to expand.}
 
 \item{size}{integer. Size of expansion, as number of raster cells.}
 

@@ -2,7 +2,7 @@
 #
 #' @inheritParams makePatch
 #' @inheritParams makeClass
-#' @param class (or patch),
+#' @param class The raster value of class (or patch) to expand.
 #' @param size integer. Size of expansion, as number of raster cells.
 #' @param bgr integer. The background available where expansion is allowed (i.e. shrinking classes).
 #' @return A RasterLayer object. If \code{rast=FALSE} returns a list of vectors, each containing the \code{context} cells assigned to each patch.
@@ -26,27 +26,47 @@
 #' plot(rr)
 #' @export
 expandClass <- function(context, class, size, bgr=0, pts = NULL) {
+  if(length(class) > 1){ stop('A single value only is admitted for "class" argument.') }
+  if(any(class %in% bgr)){ warning('Value to attribute to patches same as background cells value (arg. "class" equals "bgr").') }
+  if(any(is.na(size) | size <=0)){ stop('Invalid "size" argument provided.') }
   bd <- raster::boundaries(context, type='outer', classes=TRUE, directions=8)
   bd <- t(raster::as.matrix(bd))
-  if(!is.matrix(context)) {m <- t(raster::as.matrix(context))} else {m <- context}
-  if(is.null(pts)){edg <- which(bd==1 & m==class)} else {edg <- pts}
-  bgrCells <- which(m == bgr)
+  if(!is.matrix(context)) {
+    mtx <- t(raster::as.matrix(context))
+  } else {
+    mtx <- context
+  }
+  if(is.null(pts)){
+    edg <- which(bd==1 & mtx==class)
+  } else {
+    edg <- pts
+  }
+
+  if(length(bgr) > 1){
+    p_bgr <- which(is.element(mtx, bgr[-1]))
+    vals <- mtx[p_bgr]
+    bgr <- bgr[1]
+    bgrCells <- c(which(mtx == bgr), p_bgr)
+    mtx[p_bgr] <- bgr
+  } else {
+    bgrCells <- which(mtx == bgr)
+  }
   if(length(bgrCells) == 0){stop('No cells available, landscape full')}
   if(size > (length(bgrCells))){stop('Expansion size bigger than available landscape')}
   pts <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
-  dim1 <- dim(m)[1]
-  dim2 <- dim(m)[2]
+  dim1 <- dim(mtx)[1]
+  dim2 <- dim(mtx)[2]
   cg <- 1
   while(cg < size){
     ad <- .contigCells(pts, dim1, dim2)
     ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}
-    ad <- ad[.subset(m, ad) == bgr] # ad[m[ad] == bgr]
+    ad <- ad[.subset(mtx, ad) == bgr] # ad[mtx[ad] == bgr]
     ad <- ad[!is.na(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != pts]
       if(length(edg) <= 1) {
         if(cg == 1){
-          warning('Expanding classes do not touch shrinking classes. Input raster returned')
+          warning('Expanding classes do not touch shrinking classes. Input raster returned.')
           break
         } else {
           warning('Maximum patch size reached: ', cg)
@@ -56,11 +76,17 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
       pts <- sample(edg, 1)
       next
     }
-    m[ad] <- class
+    mtx[ad] <- class
     cg <- cg + length(ad)
     edg <- c(edg[edg != pts], ad)
     pts <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
   }
-  context[] <- t(m)
+  if(exists('p_bgr')){
+#    id <- mtx[p_bgr] != class
+    id <- .subset(mtx, p_bgr) != class
+#    mtx[p_bgr[id]] <- vals[id]
+    mtx[.subset(p_bgr, id)] <- .subset(vals, id)
+  }
+  context[] <- t(mtx)
   return(context)
 }

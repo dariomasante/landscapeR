@@ -1,27 +1,38 @@
+library(raster)
 m = matrix(0, 33, 33)
 r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 
 ## OK
-makeClass(r, 5, 15)
-makeClass(r, 5, 15)
-makeClass(r, 1, 1)
-makeClass(r, 2, 15, pts=c(1,60))
-makeClass(r, 2, c(15,150), pts=c(1,500))
-makeClass(r, 2, c(15,5000), pts=c(1,500)) ## throws warnings
-makeClass(r, 5, 15, val=5)
+plot(makeClass(r, 5, 15))
+plot(makeClass(r, 1, 1))
+plot(makeClass(r, 2, 15, pts=c(1,60)))
+plot(makeClass(r, 2, c(15,150), pts=c(1,500)))
+plot(makeClass(r, 2, c(15,5000), pts=c(1,500))) ## throws warnings
+plot(makeClass(r, 5, 15, val=5))
+plot(makeClass(r, 5, 15, bgr=c(0,1)))
+plot(makeClass(r, 5, 15, bgr=c(0,1), val=5))
+rr=makeClass(r, 5, 100); rr = makeClass(rr, 5, 50, val=5); plot(rr)
+plot(makeClass(rr, 5, 50, bgr=c(0,1), val=3)); rm(rr)
 
 ## MUST FAIL
-makeClass(r, 0, 5)
-makeClass(r, 2, 15, pts=c(1))
-makeClass(r, 2, c(15,150,300), pts=c(1,500))
-makeClass(r, 5, 15, bgr=5)
-makeClass(r, 5, 15, bgr=5, val=5)
-makeClass(r, 2, 15, pts=c(1,5000))
-
+plot(makeClass(r, 0, 5))
+plot(makeClass(r, NA, 5))
+plot(makeClass(r, 2, 15, pts=c(1)))
+plot(makeClass(r, 2, c(15,150,300), pts=c(1,500)))
+plot(makeClass(r, 5, 15, bgr=5))
+plot(makeClass(r, 5, 15, bgr=5, val=5))
+plot(makeClass(r, 2, 15, pts=c(1,5000)))
+plot(makeClass(r, c(5,4)))
+plot(makeClass(r, 2, c(15,NA)))
+plot(makeClass(r, 2, 15, pts=c(1,NA)))
+plot(makeClass(r, 5, 0))
+plot(makeClass(r, 5, -10))
+plot(makeClass(r, 5, 15, val=0))
+plot(makeClass(r, 5, 15, val=c(5,4)))
 
 ## FIX
-makeClass(r, 5, 0) ## Set warning at least?
-makeClass(r, 5, NA) ## Return sensible error
+
+ ## Return sensible error
 
 ## Create a class of three patches of given size at three corners of the spatial context
 size = c(10, 50, 200)

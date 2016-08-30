@@ -8,7 +8,7 @@ makeClass(context, npatch, size, pts = NULL, bgr = 0, edge = FALSE,
   rast = TRUE, val = 1)
 }
 \arguments{
-\item{context}{Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).}
+\item{context}{Raster object, a raster of an empty landscape or a mask, indicating where the patch cannot be generated (see \code{bgr} argument).}
 
 \item{npatch}{number of patches per class}
 
