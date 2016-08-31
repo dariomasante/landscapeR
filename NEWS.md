@@ -12,6 +12,7 @@ CHANGES:
 * Fixed author list to CRAN standards
 
 NEW:
+* Added vignette
 * Added function 'rmSingle' to remove single tones and reduce salt-pepper effect
 * Added function  'makeLine' to create linear features (directional and convoluted). Beta version.
 * Added NEWS.md file
