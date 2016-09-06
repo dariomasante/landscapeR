@@ -1,4 +1,4 @@
-#' Create a single patch. Note that function \code{makeClass} should be used preferably (see details).
+#' Create a single patch.
 #'
 #' @param context Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).
 #' @param size integer. Size of the patch to be generated, as number of raster cells.
@@ -9,9 +9,9 @@
 #' @param val integer. The value to be assigned to patch cells, when \code{rast=TRUE}
 #' @return A vector of raster cell numbers, or a RasterLayer object if \code{rast=TRUE}. If \code{edge=TRUE} a
 #' list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
-#' @details The patch is created starting from the seed point and iteratively sampling randomly neighbouring cells at the edge of the patch.
+#' @details #' Note that \code{makeClass} should be used preferably when creating a single patch, as better error and exception handling is provided for there.
+#' The patch is created starting from the seed point and iteratively sampling randomly neighbouring cells at the edge of the patch.
 #' There is a tolerance of +/- 3 cells from the patch size declared in \code{size} argument.
-#' Note that \code{makeClass} should be used preferably when creating a single patch, as better error and exception handling is provided for there.
 #' Also, argument \code{bgr} accepts a single value only, unlike \code{makeClass} that accept multiple.
 #' @examples
 #' library(raster)

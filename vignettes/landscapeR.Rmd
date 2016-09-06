@@ -19,7 +19,6 @@ Below it follows a set of examples, using landscapeR functions to generate vario
 
 ```{r, message=FALSE, warning=FALSE}
 library(landscapeR)
-
 library(raster)
 m <- matrix(0, 33, 33)
 r <- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
@@ -34,7 +33,7 @@ plot(rr)
 More features can be specified about the patch. However, `makeClass` should be preferred, even when creating a single patch (see below). 
 
 ### `makeClass`
-`makeClass` generates a group of patches, as specified by its arguments. Example:
+`makeClass` generates a group of patches, as specified by arguments. Example:
 ```{r, warning=FALSE}
 num <- 5
 size <- 15
@@ -130,7 +129,7 @@ plot(rr)
 ```
 
 ### `rmSingle`
-Remove single tones from patches, reducing salt pepper effect. The cells values are assigned randomly from one of the neighbouring cells.
+Removes single tones from patches, reducing salt-pepper effect. The cells values are assigned from one random neighbouring cell (right plot).
 ```{r, fig.width=6, warning=FALSE}
 rr <- makeClass(r, 10, 100)
 par(mfrow=c(1,2))

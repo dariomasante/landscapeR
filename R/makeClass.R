@@ -35,16 +35,6 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
     edge=FALSE
     warning('Edge output reset to FALSE. edge=TRUE only when raster output is not required (i.e. rast=FALSE)')
   }
-  if(is.null(pts)){
-    pts <- sample.int(length(context), npatch)
-  }
-  pts <- .toCellIndex(context, pts)
-  invalidPts <- which(pts > length(context) | pts < 1 | pts %% 1 != 0 | is.na(pts))
-  if(length(invalidPts) > 0){
-    stop('Seed point ', pts[invalidPts], ' not valid.')
-  }
-  if(length(pts) != npatch){ stop('Number of patches not matching number of seed points provided') }
-
   mtx <- t(raster::as.matrix(context))
   if(length(size)==1){
     size <- rep(size, npatch)
@@ -54,9 +44,27 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
     bgr <- bgr[1]
     mtx[bgrCells] <- bgr
   }
+  if(is.null(pts)){
+    pts <- sample(bgrCells, npatch)
+  }
+  pts <- .toCellIndex(context, pts)
+  ## invalidPts <- which(pts > length(mtx) | pts < 1 | pts %% 1 != 0 | is.na(pts))
+  ## if(length(invalidPts) > 0){
+  if(length(pts) != npatch){ stop('Number of patches not matching number of seed points provided.') }
+  invalidPts <- !is.element(pts, bgrCells)
+  if(any(invalidPts)){
+    if(all(invalidPts)){
+      stop('Invalid seed points.')
+    } else {
+      warning('Invalid seed points: ', paste(pts[invalidPts], collapse='; '), '\n Invalid points were ignored.')
+      pts <- pts[!invalidPts]
+      size <- size[!invalidPts]
+      npatch <- length(pts)
+    }
+  }
   lst <- list()
   for(np in 1:npatch){
-    l <- makePatch(context=mtx, spt=pts[np], size=size[np], bgr=bgr, edge=edge, val=val)
+    l <- makePatch(context=mtx, spt=pts[np], size=size[np], bgr=bgr, edge=edge, val=val, rast = FALSE)
     if(edge==TRUE){
       eg <- l[[2]]
       l <- l[[1]]

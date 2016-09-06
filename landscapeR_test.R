@@ -1,20 +1,30 @@
 library(raster)
-m = matrix(0, 33, 33)
+library(landscapeR)
+m = matrix(1, 33, 33)
 r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r = makePatch(r, size=600, spt=545, rast=TRUE, bgr=1, val=0)
+r[r == 1] = NA; plot(r)
 
 ## OK
+par(mfrow=c(2,2))
 plot(makeClass(r, 5, 15))
 plot(makeClass(r, 1, 1))
-plot(makeClass(r, 2, 15, pts=c(1,60)))
-plot(makeClass(r, 2, c(15,150), pts=c(1,500)))
-plot(makeClass(r, 2, c(15,5000), pts=c(1,500))) ## throws warnings
+plot(makeClass(r, 2, 15, pts=c(644,446)))
+plot(makeClass(r, 2, 15, pts=c(1,545))) ## throws warnings if 1 has NA value
+
+plot(makeClass(r, 2, c(15,150), pts=c(644,446)))
+plot(makeClass(r, 2, c(15,5000), pts=c(644,446))) ## throws warnings
 plot(makeClass(r, 5, 15, val=5))
-plot(makeClass(r, 5, 15, bgr=c(0,1)))
+plot(makeClass(r, 5, 15, bgr=c(0,1))) ## throws warnings
+
 plot(makeClass(r, 5, 15, bgr=c(0,1), val=5))
-rr=makeClass(r, 5, 100); rr = makeClass(rr, 5, 50, val=5); plot(rr)
+rr=makeClass(r, 5, 50); rr = makeClass(rr, 5, 50, val=5); plot(rr)
 plot(makeClass(rr, 5, 50, bgr=c(0,1), val=3)); rm(rr)
+plot(makeClass(r, 5, 15, val=0)) ## throws warnings
 
 ## MUST FAIL
+plot(makeClass(r, 2, c(15,150), pts=c(1,2)))
+plot(makeClass(r, 1, 15, pts=1)) # Will not throw error if cell 1 has non NA value
 plot(makeClass(r, 0, 5))
 plot(makeClass(r, NA, 5))
 plot(makeClass(r, 2, 15, pts=c(1)))
@@ -27,8 +37,8 @@ plot(makeClass(r, 2, c(15,NA)))
 plot(makeClass(r, 2, 15, pts=c(1,NA)))
 plot(makeClass(r, 5, 0))
 plot(makeClass(r, 5, -10))
-plot(makeClass(r, 5, 15, val=0))
 plot(makeClass(r, 5, 15, val=c(5,4)))
+plot(makeClass(r, 5, 15, bgr=c(0,NA)))
 
 ## FIX
 
@@ -40,6 +50,63 @@ pts = c(1, 33, 1089)
 rr = makeClass(r, 3, size, pts)
 plot(rr)
 
+################# MAKE PATCH
+## OK
+par(mfrow=c(2,2))
+plot(makePatch(r, 50, rast=TRUE))
+plot(makePatch(r, 1, rast=TRUE))
+plot(makePatch(r, 2, spt=446, rast=TRUE))
+plot(makePatch(r, 50, spt=446, edge=TRUE, rast=TRUE))
+
+makePatch(r, 15, spt=446)
+makePatch(r, 1, spt=446)
+makePatch(r, 1, spt=446, edge=TRUE)
+makePatch(r, 15, spt=446, edge=TRUE)
+plot(makePatch(r, 50, val=5, rast=TRUE))
+
+## MUST FAIL
+makePatch(r, c(15,150)) #
+makePatch(r, 20, spt=c(644,446))
+makePatch(r, 20, spt=1)
+makePatch(r, NA, spt=1, rast=TRUE)
+makePatch(r, 20, spt=NA, rast=TRUE)
+makePatch(r, -1, spt=1, rast=TRUE)
+makePatch(r, 20, spt=-1, rast=TRUE)
+makePatch(r, 0, spt=1, rast=TRUE)
+makePatch(r, 20, spt=0, rast=TRUE)
+makePatch(r, 100000000, spt=1, rast=TRUE)
+makePatch(r, 20, spt=10000000, rast=TRUE)
+makePatch(r, 20, val=c(2,4), rast=TRUE)
+makePatch(r, 20, bgr=c(0,1), rast=TRUE)
+
+## FIX
+#plot(makePatch(r, 50, val=15, bgr=c(0,1), rast=TRUE)) ## throws warnings
+#plot(makePatch(r, 50, val=15, bgr=c(1,0), rast=TRUE))
+#plot(makePatch(r, 50, val=15, bgr=c(NA,1), rast=TRUE))
+
+################# MAKE LINE
+## OK
+par(mfrow=c(2,2))
+plot(makeLine(r, 30, rast=TRUE))
+plot(makeLine(r, 30, spt=445, rast=TRUE))
+plot(makeLine(r, 30, rast=TRUE, val=3))
+plot(makeLine(r, 30, rast=TRUE, direction=90))
+
+plot(makeLine(r, 30, rast=TRUE, convol=0.05))
+plot(makeLine(r, 30, rast=TRUE, spt=664))
+plot(makeLine(r, 30, rast=TRUE, edge=TRUE))
+plot(makeLine(r, 1, rast=TRUE))
+makeLine(r, 30, edge=TRUE)
+makeLine(r, 30)
+makeLine(r, 30, spt=445)
+
+## FAILS
+plot(makeLine(r, NA, rast=TRUE)) # Add error message
+
+## FIX
+plot(makeLine(r, 0, rast=TRUE))
+plot(makeLine(r, 30, rast=TRUE, val=3, bgr=c(NA,0)))
+plot(makeLine(r, 30, rast=TRUE, val=3, bgr=1)) ## Throws warning
 
 #################
 ## Create linear features randomly
