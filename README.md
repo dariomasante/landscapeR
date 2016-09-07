@@ -11,7 +11,7 @@ install.packages("landscapeR")
 ```
 
 Alternatively to install from source:
-- download the source file [landscapeR_1.0.0.tar.gz](https://cran.r-project.org/src/contrib/landscapeR_1.0.0.tar.gz) to the R working directory (or any other directory)
+- download the [source file (.tar.gz)](https://cran.r-project.org/package=landscapeR) to the R working directory (or any other directory)
 - start an R session
 - run the following commands in the console:
 ``` r
