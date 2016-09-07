@@ -17,7 +17,6 @@ Alternatively to install from source:
 ``` r
 ## Install the required packages 
 install.packages("raster", repos="http://cran.uk.r-project.org/", dependencies=T, clean=T)
-install.packages("fastmatch", repos="http://cran.uk.r-project.org/", dependencies=T, clean=T)
 
 ## Install landscapeR (full path to the file, if not in the R working directory)
 install.packages("~/landscapeR_1.0.0.tar.gz", repos = NULL, type="source")
