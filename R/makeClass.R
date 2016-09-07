@@ -39,8 +39,11 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
   if(length(size)==1){
     size <- rep(size, npatch)
   }
+  bgrCells <- which(is.element(mtx, bgr))
+  if(length(bgrCells) == 0){
+    stop('No background cells available with value ', bgr, '. Try checking argument "bgr".')
+  }
   if(length(bgr > 1)){
-    bgrCells <- which(is.element(mtx, bgr))
     bgr <- bgr[1]
     mtx[bgrCells] <- bgr
   }
@@ -54,7 +57,7 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
   invalidPts <- !is.element(pts, bgrCells)
   if(any(invalidPts)){
     if(all(invalidPts)){
-      stop('Invalid seed points.')
+      stop('All seed points invalid.')
     } else {
       warning('Invalid seed points: ', paste(pts[invalidPts], collapse='; '), '\n Invalid points were ignored.')
       pts <- pts[!invalidPts]

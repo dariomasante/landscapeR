@@ -17,28 +17,33 @@ plot(makeClass(r, 2, c(15,5000), pts=c(644,446))) ## throws warnings
 plot(makeClass(r, 5, 15, val=5))
 plot(makeClass(r, 5, 15, bgr=c(0,1))) ## throws warnings
 
+plot(makeClass(r, 5, 15, bgr=c(0,NA)))
 plot(makeClass(r, 5, 15, bgr=c(0,1), val=5))
 rr=makeClass(r, 5, 50); rr = makeClass(rr, 5, 50, val=5); plot(rr)
 plot(makeClass(rr, 5, 50, bgr=c(0,1), val=3)); rm(rr)
+
 plot(makeClass(r, 5, 15, val=0)) ## throws warnings
+makeClass(r, 5, 15, rast=FALSE)
+makeClass(r, 3, c(10,12,5), rast=FALSE)
+
 
 ## MUST FAIL
-plot(makeClass(r, 2, c(15,150), pts=c(1,2)))
-plot(makeClass(r, 1, 15, pts=1)) # Will not throw error if cell 1 has non NA value
-plot(makeClass(r, 0, 5))
-plot(makeClass(r, NA, 5))
-plot(makeClass(r, 2, 15, pts=c(1)))
-plot(makeClass(r, 2, c(15,150,300), pts=c(1,500)))
-plot(makeClass(r, 5, 15, bgr=5))
-plot(makeClass(r, 5, 15, bgr=5, val=5))
-plot(makeClass(r, 2, 15, pts=c(1,5000)))
-plot(makeClass(r, c(5,4)))
-plot(makeClass(r, 2, c(15,NA)))
-plot(makeClass(r, 2, 15, pts=c(1,NA)))
-plot(makeClass(r, 5, 0))
-plot(makeClass(r, 5, -10))
-plot(makeClass(r, 5, 15, val=c(5,4)))
-plot(makeClass(r, 5, 15, bgr=c(0,NA)))
+makeClass(r, 3, c(0,12,5), rast=FALSE)
+makeClass(r, 2, c(15,150), pts=c(1,2))
+makeClass(r, 1, 15, pts=1) # Will not throw error if cell 1 has non NA value
+makeClass(r, 0, 5)
+makeClass(r, NA, 5)
+makeClass(r, 2, 15, pts=446)
+makeClass(r, 2, c(15,150,300), pts=c(1,500))
+makeClass(r, 5, 15, bgr=5)
+makeClass(r, 5, 15, bgr=5, val=5)
+makeClass(r, 2, 15, pts=c(1,5000))
+makeClass(r, c(5,4))
+makeClass(r, 2, c(15,NA))
+makeClass(r, 2, 15, pts=c(1,NA))
+makeClass(r, 5, 0)
+makeClass(r, 5, -10)
+makeClass(r, 5, 15, val=c(5,4))
 
 ## FIX
 
@@ -62,6 +67,8 @@ makePatch(r, 15, spt=446)
 makePatch(r, 1, spt=446)
 makePatch(r, 1, spt=446, edge=TRUE)
 makePatch(r, 15, spt=446, edge=TRUE)
+makePatch(r, 15, val=1, edge=TRUE)
+makePatch(r, 15, val=0, edge=TRUE)
 plot(makePatch(r, 50, val=5, rast=TRUE))
 
 ## MUST FAIL
