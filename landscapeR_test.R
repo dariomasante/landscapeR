@@ -115,6 +115,13 @@ plot(makeLine(r, 0, rast=TRUE))
 plot(makeLine(r, 30, rast=TRUE, val=3, bgr=c(NA,0)))
 plot(makeLine(r, 30, rast=TRUE, val=3, bgr=1)) ## Throws warning
 
+
+################# RM SINGLE
+FIX = Error in if (all(.subset(vval, ad) != .subset(vval, pt))) { : 
+    missing value where TRUE/FALSE needed
+
+  
+  
 #################
 ## Create linear features randomly
 r = matrix(0,50,50); r = raster::raster(r, xmn=0, xmx=10, ymn=0, ymx=10)

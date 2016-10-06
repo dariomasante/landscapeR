@@ -1,8 +1,16 @@
+landscapeR v1.1.3 (Patch release date: ...........)
+-----------------------------------------------
+CHANGES:
+
+* Minor documentation edits in all functions and DESCRIPTION file
+
+
 landscapeR v1.1.2 (Patch release date: 2016-09-07)
 -----------------------------------------------
 CHANGES:
 
 * Bug fix in 'makeClass'
+* Clarified error messages
 
 
 landscapeR v1.1.1 (Patch release date: 2016-08-31)
