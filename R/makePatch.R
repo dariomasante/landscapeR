@@ -75,7 +75,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     ad <- .contigCells(spt, dim1, dim2)
     ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}. It was {d <- fastmatch::fmatch(ad, bgrCells, nomatch = 0);ad <- bgrCells[d]}
     ad <- ad[.subset(mtx, ad) == bgr] #ad[mtx[ad] == bgr]
-    ad <- ad[!is.na(ad)]
+    ad <- ad[is.finite(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
