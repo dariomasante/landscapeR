@@ -1,8 +1,10 @@
-landscapeR v1.1.3 (Patch release date: ...........)
+landscapeR v1.1.3 (Patch release date: 2016-12-13)
 -----------------------------------------------
 CHANGES:
 
-* Minor documentation edits in all functions and DESCRIPTION file
+* New mantainers's email address in the DESCRIPTION file
+* Minor documentation edits in all functions
+* Slight speed improvements with performant native R functions
 
 
 landscapeR v1.1.2 (Patch release date: 2016-09-07)
