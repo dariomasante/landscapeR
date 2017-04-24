@@ -21,5 +21,5 @@
 #' @docType package
 #' @name landscapeR-package
 #' @aliases landscapeR
-#' @author Dario Masante \email{dmasan@ceh.ac.uk}
+#' @author Dario Masante
 NULL
