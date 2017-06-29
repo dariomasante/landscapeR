@@ -61,7 +61,11 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
   if(.subset(mtx, spt) != bgr){ #mtx[spt] != bgr
     wp <- spt
-    spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
+    if(length(bgrCells) > 1){
+      spt <- sample(bgrCells, 1)
+    } else {
+      spt <- bgrCells
+    }
     if(warningSwitch){
       warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
     }
@@ -73,9 +77,8 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   cg = 1
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
-    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}. It was {d <- fastmatch::fmatch(ad, bgrCells, nomatch = 0);ad <- bgrCells[d]}
+    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}.
     ad <- ad[.subset(mtx, ad) == bgr] #ad[mtx[ad] == bgr]
-    ad <- ad[is.finite(ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
@@ -87,14 +90,23 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
       mtx[ad] <- val
       edg <- c(edg[edg != spt], ad)
       cg <- cg + length(ad)
-      spt <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
+      if(length(edg) == 1){
+        spt <- edg
+      } else {
+        spt <- sample(edg, 1)
+      }
     }
+    #Rcpp::checkUserInterrupt()
   }
   if(rast == TRUE) {
     context[] <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
-    edgVal <- ifelse(val+1 == bgr, val+2, val+1)
+    if(val+1 == bgr){
+      edgVal <- val+2
+    } else {
+      edgVal <- val+1
+    }
     mtx[edg] <- edgVal
     edg <- which(mtx == edgVal)
     idx <- which(mtx == val)
@@ -115,35 +127,3 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
 }
 
-
-## Find contiguous cells (rook case, 4 directions)
-.contigCells <- function(pt, dim1, dim2){
-  if(pt %% dim1 == 0){
-    rr <- dim1
-    cc <- pt / dim1
-  } else {
-    cc <- trunc(pt / dim1) + 1
-    rr <- pt - (cc-1) * dim1
-  }
-  ad <- c(rr-1, rr+1, rr, rr, cc, cc, cc-1, cc+1)
-  #ad[ad <= 0 | c(ad[1:4] > dim1, ad[5:8] > dim2)] <- NA
-  ad[ad <= 0 | c(.subset(ad, 1:4) > dim1, .subset(ad, 5:8) > dim2)] <- NA
-  #ad <- ad[1:4] + (ad[5:8]-1) * dim1
-  ad <- .subset(ad, 1:4) + (.subset(ad, 5:8) - 1) * dim1
-}
-
-## Converts matrix indexes into indexes suitable for the transposed matrix (NOT USED)
-.indexTranspose <- function(mtx, id){
-  dim1 <- dim(mtx)[1]
-  dim2 <- dim(mtx)[2]
-  sapply(id, function(x){
-    if(x %% dim1 == 0){
-      rr <- dim1
-      cc <- x / dim1
-    } else {
-      cc <- trunc(x / dim1) + 1
-      rr <- x - (cc - 1) * dim1
-    }
-    cc + (rr-1) * dim2
-  })
-}

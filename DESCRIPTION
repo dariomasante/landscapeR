@@ -6,7 +6,8 @@ Authors@R: c(person(given = "Dario", family = "Masante", role = c("aut", "cre"),
 Copyright: Natural Environment Research Council (NERC) and Centre for Ecology and Hydrology (CEH)
 URL: https://github.com/dariomasante/landscapeR
 BugReports: https://github.com/dariomasante/landscapeR/issues
-Imports: raster
+Imports: raster,
+    Rcpp
 Suggests:
     knitr,
     rmarkdown
@@ -17,3 +18,4 @@ LazyData: TRUE
 NeedsCompilation: no
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
+LinkingTo: Rcpp
