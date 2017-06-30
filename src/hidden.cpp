@@ -4,12 +4,16 @@ using namespace Rcpp;
 // Get contiguous cells (rook case only)
 
 // [[Rcpp::export(name = ".contigCells")]]
-IntegerVector contigCells_cpp(int pt, int dim1, int dim2) {
-  int rr = 0;
-  int cc = 0;
+IntegerVector contigCells_cpp(int pt, int bgr, NumericMatrix mtx) {
+  int rr;
+  int cc;
+  int dim1 = mtx.nrow();
+  int dim2 = mtx.ncol();
   IntegerVector r(4);
   IntegerVector c(4);
   IntegerVector ad(4);
+  int val;
+  int x = 0;
   if (pt % dim1 == 0) {
     rr = dim1;
     cc = pt / dim1;
@@ -26,14 +30,17 @@ IntegerVector contigCells_cpp(int pt, int dim1, int dim2) {
   c[2] = cc-1;
   c[3] = cc+1;
   for (int i = 0; i < 4; i++){
-    if(r[i] <= 0 || r[i] > dim1 || c[i] <= 0 || c[i] > dim2){
-      ad[i] = NA_INTEGER;
-    } else {
-      ad[i] = r[i] + (c[i] - 1) * dim1;
+    if(r[i] > 0 && r[i] <= dim1 && c[i] > 0 && c[i] <= dim2){
+      val = r[i] + (c[i] - 1) * dim1;
+      if(mtx[val] == bgr){
+        ad[x] = val;
+        x += 1;
+      }
     }
   }
-  return(na_omit(ad));
+  return(ad);
 }
+
 
 // Transpose index of input cells
 

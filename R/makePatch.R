@@ -77,8 +77,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   cg = 1
   while(cg < size){
     ad <- .contigCells(spt, dim1, dim2)
-    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}.
-    ad <- ad[.subset(mtx, ad) == bgr] #ad[mtx[ad] == bgr]
+    ad <- ad[.subset(mtx, ad)]
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
