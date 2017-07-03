@@ -60,3 +60,45 @@ IntegerVector indexTranspose_cpp(IntegerVector id, int dim1, int dim2) {
   return(out);
 }
 
+// Remove single tones
+
+// // [[Rcpp::export(name = "rmSingle")]]
+// IntegerVector rmSingle_cpp(NumericMatrix mtx, bool rm) {
+//   int dim1 = mtx.ncol();
+//   int dim2 = mtx.nrow();
+//   int singles;
+//   int v;
+//   int vval;
+// //
+//   int n = mtx.length();
+//   for (int i = 0; i < n; i++){
+//     v[i] = mtx[i];
+//     vval[i] = mtx[i];
+//   v <- which(is.finite(v))
+//   for (pt in v){  ## Faster than sapply or vapply!
+//     if(pt %% dim2 == 0){
+//       cc <- dim2
+//       rr <- pt / dim2
+//     } else {
+//       rr <- trunc(pt / dim2) + 1
+//       cc <- pt - (rr-1) * dim2
+//     }
+//     ad <- c(rr-1,rr+1,rr,rr,cc,cc,cc-1,cc+1)
+//       ad[ad	 <= 0 | c(ad[1:4] > dim1, ad[5:8] > dim2)] <- NA
+//       ad <- ad[5:8] + (ad[1:4]-1)*dim2
+//       ad <- ad[is.finite(ad)]
+//     if(all(.subset(vval, ad) != .subset(vval, pt))){
+//       if(rm == TRUE){
+//         vval[pt] <- sample(.subset(vval, ad), 1)
+//       } else {
+//         singles <- c(singles, pt)
+//       }
+//     }
+//   }
+//   if(rm == TRUE){
+//     rst[] <- vval
+//     return(rst)
+//   } else {
+//     return(singles)
+//   }
+// }

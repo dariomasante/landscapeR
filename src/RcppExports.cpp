@@ -31,3 +31,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// // rmSingle_cpp
+// // IntegerVector rmSingle_cpp(NumericMatrix mtx, bool rm);
+// RcppExport SEXP landscapeR_rmSingle_cpp(SEXP mtxSEXP, SEXP rmSEXP) {
+// BEGIN_RCPP
+//     Rcpp::RObject rcpp_result_gen;
+//     Rcpp::RNGScope rcpp_rngScope_gen;
+//     Rcpp::traits::input_parameter< NumericMatrix >::type mtx(mtxSEXP);
+//     Rcpp::traits::input_parameter< bool >::type rm(rmSEXP);
+//     rcpp_result_gen = Rcpp::wrap(rmSingle_cpp(mtx, rm));
+//     return rcpp_result_gen;
+// END_RCPP
+// }

@@ -9,3 +9,7 @@
     .Call('landscapeR_indexTranspose_cpp', PACKAGE = 'landscapeR', id, dim1, dim2)
 }
 
+rmSingle <- function(mtx, rm) {
+    .Call('landscapeR_rmSingle_cpp', PACKAGE = 'landscapeR', mtx, rm)
+}
+
