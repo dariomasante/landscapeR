@@ -54,14 +54,9 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
   if(length(bgrCells) == 0){stop('No cells available, landscape full')}
   if(size > (length(bgrCells))){stop('Expansion size bigger than available landscape')}
   pts <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
-  dim1 <- dim(mtx)[1]
-  dim2 <- dim(mtx)[2]
   cg <- 1
   while(cg < size){
-    ad <- .contigCells(pts, dim1, dim2)
-    ## The following stands for {ad <- bgrCells[which(bgrCells %in% ad)]}
-    ad <- ad[.subset(mtx, ad) == bgr] # ad[mtx[ad] == bgr]
-    ad <- ad[is.finite(ad)]
+    ad <- .contigCells(pts, bgr, mtx)
     if(length(ad) == 0) {
       edg <- edg[edg != pts]
       if(length(edg) <= 1) {

@@ -6,15 +6,15 @@
 using namespace Rcpp;
 
 // contigCells_cpp
-IntegerVector contigCells_cpp(int pt, int dim1, int dim2);
-RcppExport SEXP landscapeR_contigCells_cpp(SEXP ptSEXP, SEXP dim1SEXP, SEXP dim2SEXP) {
+IntegerVector contigCells_cpp(int pt, int bgr, NumericMatrix mtx);
+RcppExport SEXP landscapeR_contigCells_cpp(SEXP ptSEXP, SEXP bgrSEXP, SEXP mtxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type pt(ptSEXP);
-    Rcpp::traits::input_parameter< int >::type dim1(dim1SEXP);
-    Rcpp::traits::input_parameter< int >::type dim2(dim2SEXP);
-    rcpp_result_gen = Rcpp::wrap(contigCells_cpp(pt, dim1, dim2));
+    Rcpp::traits::input_parameter< int >::type bgr(bgrSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type mtx(mtxSEXP);
+    rcpp_result_gen = Rcpp::wrap(contigCells_cpp(pt, bgr, mtx));
     return rcpp_result_gen;
 END_RCPP
 }

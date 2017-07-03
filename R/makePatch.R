@@ -72,12 +72,11 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
   mtx[spt] <- val
   edg <- spt
-  dim1 <- dim(mtx)[1]
-  dim2 <- dim(mtx)[2]
+  #dim1 <- dim(mtx)[1]
+  #dim2 <- dim(mtx)[2]
   cg = 1
   while(cg < size){
-    ad <- .contigCells(spt, dim1, dim2)
-    ad <- ad[.subset(mtx, ad)]
+    ad <- .contigCells(spt, bgr, mtx)
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {

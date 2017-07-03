@@ -47,16 +47,12 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   }
   mtx[spt] <- val
   edg <- spt
-  dim1 <- dim(mtx)[1]
-  dim2 <- dim(mtx)[2]
   cg = 1
   if(!is.null(direction)){
     SD <- .directionDistrib(direction, convol)
   }
   while(cg < size){
-    ad <- .contigCells(spt, dim1, dim2)
-    ad <- ad[.subset(mtx, ad) == bgr]
-    ad <- ad[is.finite(ad)]
+    ad <- .contigCells(spt, bgr, mtx)
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {
@@ -117,16 +113,12 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
   }
   edg <- spt
-  dim1 <- dim(mtx)[1]
-  dim2 <- dim(mtx)[2]
   cg = 1
   if(!is.null(direction)){
     SD <- .directionDistrib(direction, convol)
   }
   while(cg < size){
-    ad <- .contigCells(spt, dim1, dim2)
-    ad <- ad[.subset(mtx, ad) == bgr]
-    ad <- ad[is.finite(ad)]
+    ad <- .contigCells(spt, bgr, mtx)
     if(length(ad) == 0) {
       edg <- edg[edg != spt]
       if(length(edg) <= 1) {

@@ -11,9 +11,8 @@ IntegerVector contigCells_cpp(int pt, int bgr, NumericMatrix mtx) {
   int dim2 = mtx.ncol();
   IntegerVector r(4);
   IntegerVector c(4);
-  IntegerVector ad(4);
-  int val;
-  int x = 0;
+  IntegerVector ad;
+  int idx;
   if (pt % dim1 == 0) {
     rr = dim1;
     cc = pt / dim1;
@@ -31,16 +30,14 @@ IntegerVector contigCells_cpp(int pt, int bgr, NumericMatrix mtx) {
   c[3] = cc+1;
   for (int i = 0; i < 4; i++){
     if(r[i] > 0 && r[i] <= dim1 && c[i] > 0 && c[i] <= dim2){
-      val = r[i] + (c[i] - 1) * dim1;
-      if(mtx[val] == bgr){
-        ad[x] = val;
-        x += 1;
+      idx = r[i] + (c[i] - 1) * dim1;
+      if(mtx[idx-1] == bgr){
+        ad.push_back(idx);
       }
     }
   }
   return(ad);
 }
-
 
 // Transpose index of input cells
 

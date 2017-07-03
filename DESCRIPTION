@@ -16,6 +16,6 @@ License: GPL (>= 3)
 LazyLoad: yes
 LazyData: TRUE
 NeedsCompilation: no
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 LinkingTo: Rcpp
