@@ -5,11 +5,11 @@
     .Call('landscapeR_contigCells_cpp', PACKAGE = 'landscapeR', pt, bgr, mtx)
 }
 
-.indexTranspose <- function(id, dim1, dim2) {
-    .Call('landscapeR_indexTranspose_cpp', PACKAGE = 'landscapeR', id, dim1, dim2)
+.assignValues <- function(val, ad, mtx) {
+    .Call('landscapeR_assignValues_cpp', PACKAGE = 'landscapeR', val, ad, mtx)
 }
 
-rmSingle <- function(mtx, rm) {
-    .Call('landscapeR_rmSingle_cpp', PACKAGE = 'landscapeR', mtx, rm)
+.indexTranspose <- function(id, dim1, dim2) {
+    .Call('landscapeR_indexTranspose_cpp', PACKAGE = 'landscapeR', id, dim1, dim2)
 }
 

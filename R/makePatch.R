@@ -62,7 +62,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   if(.subset(mtx, spt) != bgr){ #mtx[spt] != bgr
     wp <- spt
     if(length(bgrCells) > 1){
-      spt <- sample(bgrCells, 1)
+      spt <- sample(bgrCells, 1)# bgrCells[.Internal(sample(length(bgrCells), 1L, FALSE, NULL))] #
     } else {
       spt <- bgrCells
     }
@@ -72,8 +72,6 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
   mtx[spt] <- val
   edg <- spt
-  #dim1 <- dim(mtx)[1]
-  #dim2 <- dim(mtx)[2]
   cg = 1
   while(cg < size){
     ad <- .contigCells(spt, bgr, mtx)
@@ -83,15 +81,15 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
         warning('Patch size reached from seed point ', spt, ' was ', cg, ' . No further background cells available for the patch.')
         break
       }
-      spt <- sample(edg, 1)
+      spt <- sample(edg, 1) # edg[.Internal(sample(length(edg), 1L, FALSE, NULL))] #
     } else {
-      mtx[ad] <- val
+      .assignValues(val, ad, mtx) #mtx[ad] <- val
       edg <- c(edg[edg != spt], ad)
       cg <- cg + length(ad)
       if(length(edg) == 1){
         spt <- edg
       } else {
-        spt <- sample(edg, 1)
+        spt <- sample(edg, 1) # edg[.Internal(sample(length(edg), 1L, FALSE, NULL))] #
       }
     }
     #Rcpp::checkUserInterrupt()
@@ -105,7 +103,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     } else {
       edgVal <- val+1
     }
-    mtx[edg] <- edgVal
+    .assignValues(edgVal, edg, mtx) #mtx[edg] <- edgVal
     edg <- which(mtx == edgVal)
     idx <- which(mtx == val)
     return(list(inner = idx, edge = edg))

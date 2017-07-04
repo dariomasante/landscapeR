@@ -39,6 +39,15 @@ IntegerVector contigCells_cpp(int pt, int bgr, NumericMatrix mtx) {
   return(ad);
 }
 
+// Assign values
+// [[Rcpp::export(name = ".assignValues")]]
+NumericMatrix assignValues_cpp(int val, IntegerVector ad, NumericMatrix mtx) {
+  for (int i = 0; i < ad.length(); i++){
+    mtx[ad[i]-1] = val;
+  }
+  return(mtx);
+}
+
 // Transpose index of input cells
 
 // [[Rcpp::export(name = ".indexTranspose")]]

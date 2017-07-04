@@ -18,6 +18,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// assignValues_cpp
+NumericMatrix assignValues_cpp(int val, IntegerVector ad, NumericMatrix mtx);
+RcppExport SEXP landscapeR_assignValues_cpp(SEXP valSEXP, SEXP adSEXP, SEXP mtxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type val(valSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ad(adSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type mtx(mtxSEXP);
+    rcpp_result_gen = Rcpp::wrap(assignValues_cpp(val, ad, mtx));
+    return rcpp_result_gen;
+END_RCPP
+}
 // indexTranspose_cpp
 IntegerVector indexTranspose_cpp(IntegerVector id, int dim1, int dim2);
 RcppExport SEXP landscapeR_indexTranspose_cpp(SEXP idSEXP, SEXP dim1SEXP, SEXP dim2SEXP) {
@@ -31,15 +44,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// // rmSingle_cpp
-// // IntegerVector rmSingle_cpp(NumericMatrix mtx, bool rm);
-// RcppExport SEXP landscapeR_rmSingle_cpp(SEXP mtxSEXP, SEXP rmSEXP) {
-// BEGIN_RCPP
-//     Rcpp::RObject rcpp_result_gen;
-//     Rcpp::RNGScope rcpp_rngScope_gen;
-//     Rcpp::traits::input_parameter< NumericMatrix >::type mtx(mtxSEXP);
-//     Rcpp::traits::input_parameter< bool >::type rm(rmSEXP);
-//     rcpp_result_gen = Rcpp::wrap(rmSingle_cpp(mtx, rm));
-//     return rcpp_result_gen;
-// END_RCPP
-// }
