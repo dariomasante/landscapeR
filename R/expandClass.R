@@ -47,13 +47,17 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
     vals <- mtx[p_bgr]
     bgr <- bgr[1]
     bgrCells <- c(which(mtx == bgr), p_bgr)
-    mtx[p_bgr] <- bgr
+    .assignValues(bgr, p_bgr, mtx) # mtx[p_bgr] <- bgr
   } else {
     bgrCells <- which(mtx == bgr)
   }
   if(length(bgrCells) == 0){stop('No cells available, landscape full')}
   if(size > (length(bgrCells))){stop('Expansion size bigger than available landscape')}
-  pts <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
+  if(length(edg) == 1){
+    pts <- edg
+  } else {
+    pts <- sample(edg, 1)
+  }
   cg <- 1
   while(cg < size){
     ad <- .contigCells(pts, bgr, mtx)
@@ -71,10 +75,14 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
       pts <- sample(edg, 1)
       next
     }
-    mtx[ad] <- class
+    .assignValues(class, ad, mtx) # mtx[ad] <- class
     cg <- cg + length(ad)
     edg <- c(edg[edg != pts], ad)
-    pts <- ifelse(length(edg) == 1, edg, sample(edg, 1) )
+    if(length(edg) == 1){
+      pts <- edg
+    } else {
+      pts <- sample(edg, 1)
+    }
   }
   if(exists('p_bgr')){
 #    id <- mtx[p_bgr] != class

@@ -1,3 +1,10 @@
+landscapeR v1.2 (Release date: 2017-07-05)
+-----------------------------------------------
+CHANGES:
+
+* Hidden internal functions translated to C++ for significant speed inprovements
+
+
 landscapeR v1.1.3 (Patch release date: 2016-12-13)
 -----------------------------------------------
 CHANGES:

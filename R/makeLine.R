@@ -33,7 +33,9 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     mtx <- context
   }
   bgrCells <- which(mtx == bgr)
-  spt <- ifelse(is.null(spt), sample(bgrCells, 1), spt)
+  if(is.null(spt)){
+    spt <- sample(bgrCells, 1)
+  }
   if(length(bgrCells) == 0){
     stop('No background cells available, landscape full. Try checking argument "bgr".')
   }
@@ -42,10 +44,14 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   }
   if(.subset(mtx, spt) != bgr){
     wp <- spt
-    spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
+    if(length(bgrCells) > 1){
+      spt <- sample(bgrCells, 1)
+    } else {
+      spt <- bgrCells
+    }
     warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
   }
-  mtx[spt] <- val
+  .assignValues(val, spt, mtx) # mtx[spt] <- val
   edg <- spt
   cg = 1
   if(!is.null(direction)){
@@ -61,7 +67,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- sample(edg, 1) ## remove to avoid branching (will need more fixes though)
     } else {
-      mtx[ad] <- val
+      .assignValues(val, ad, mtx) # mtx[ad] <- val
       edg <- c(edg[edg != spt], ad)
       cg <- cg + length(ad)
       if(is.null(direction) | length(ad) == 1){
@@ -77,7 +83,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     return(context)
   } else if (edge == TRUE) {
     edgVal <- ifelse(val+1 == bgr, val+2, val+1)
-    mtx[edg] <- edgVal
+    .assignValues(edgVal, edg, mtx) # mtx[edg] <- edgVal
     edg <- which(mtx == edgVal)
     idx <- which(mtx == val)
     return(list(inner = idx, edge = edg))
@@ -109,7 +115,11 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
   }
   if(.subset(mtx, spt) != bgr){
     wp <- spt
-    spt <- ifelse(length(bgrCells) > 1, sample(bgrCells, 1), bgrCells)
+    if(length(bgrCells) > 1){
+      spt <- sample(bgrCells, 1)
+    } else {
+      spt <- bgrCells
+    }
     warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
   }
   edg <- spt
@@ -127,7 +137,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- sample(edg, 1) ## remove to avoid branching (will need more fixes though)
     } else {
-      mtx[spt] <- val
+      .assignValues(val, spt, mtx) # mtx[spt] <- val
       edg <- c(edg[edg != spt], ad)
       cg <- cg + 1
       if(is.null(direction) | length(ad) == 1){
@@ -142,8 +152,12 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     context[] <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
-    edgVal <- ifelse(val+1 == bgr, val+2, val+1)
-    mtx[edg] <- edgVal
+    if(val+1 == bgr){
+      edgVal <- val+2
+    } else {
+      edgVal <- val+1
+    }
+    .assignValues(edgVal, edg, mtx) # mtx[edg] <- edgVal
     edg <- which(mtx == edgVal)
     idx <- which(mtx == val)
     return(list(inner = idx, edge = edg))

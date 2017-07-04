@@ -55,7 +55,9 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   if(size > length(bgrCells)){
     warning('Patch size bigger than available background.')
   }
-  spt <- ifelse(is.null(spt), sample(bgrCells, 1), spt)
+  if(is.null(spt)){
+    spt <- sample(bgrCells, 1)
+  }
   if(spt > length(context) | spt < 1 | spt %% 1 != 0){
     stop('Seed point not valid. Must be an integer between 1 and the total number of cells of "context".')
   }
@@ -70,7 +72,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
       warning('Seed point  ', wp, '  outside background. Re-sampled randomly inside it. New seed:  ', spt)
     }
   }
-  mtx[spt] <- val
+  .assignValues(val, spt, mtx) #mtx[spt] <- val
   edg <- spt
   cg = 1
   while(cg < size){
