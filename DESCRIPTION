@@ -15,7 +15,7 @@ Description: Simulates categorical maps on actual geographical realms, starting 
 License: GPL (>= 3)
 LazyLoad: yes
 LazyData: TRUE
-NeedsCompilation: no
+NeedsCompilation: yes
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 LinkingTo: Rcpp
