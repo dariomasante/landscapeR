@@ -1,7 +1,7 @@
 Package: landscapeR
 Title: Categorical Landscape Simulation Facility
-Version: 1.2
-Date: 2017-07-05
+Version: 1.2.1
+Date: 2020-02-05
 Authors@R: c(person(given = "Dario", family = "Masante", role = c("aut", "cre"), email = "dario.masante@gmail.com"))
 Copyright: Natural Environment Research Council (NERC) and Centre for Ecology and Hydrology (CEH)
 URL: https://github.com/dariomasante/landscapeR

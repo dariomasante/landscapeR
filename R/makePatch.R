@@ -74,7 +74,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   }
   .assignValues(val, spt, mtx) #mtx[spt] <- val
   edg <- spt
-  cg = 1
+  cg <- 1
   while(cg < size){
     ad <- .contigCells(spt, bgr, mtx)
     if(length(ad) == 0) {

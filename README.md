@@ -3,7 +3,8 @@ A landscape simulator for R.
 This package is aimed at simulating categorical landscapes on actual geographical realms, starting from either empty landscapes or landscapes provided by the user (e.g. land use maps). The purpose is to provide a tool to tweak or create the landscape while retaining a high degree of control on its features, without the hassle of specifying each location attribute. In this it differs from other tools which generate null or neutral landscape in a theorethical space. All basic GIS operations are handled by the [raster](https://cran.r-project.org/package=raster) package.
 
 URL: https://cran.r-project.org/package=landscapeR  
-Reference manual: [landscapeR.pdf](https://cran.r-project.org/web/packages/landscapeR/landscapeR.pdf)  
+Reference manual: [landscapeR.pdf](https://cran.r-project.org/web/packages/landscapeR/landscapeR.pdf)
+Citation: Thomas, A., Masante, D., Jackson, B., Cosby, B., Emmett, B., Jones, L. (2020). Fragmentation and thresholds in hydrological flow-based ecosystem services. Ecological Applications. https://doi.org/10.1002/eap.2046
 
 To install, open a R session and select 'landscapeR' from the packages list, or type in the console:
 ```r
@@ -19,7 +20,7 @@ Alternatively to install from source:
 install.packages("raster", repos="http://cran.uk.r-project.org/", dependencies=T, clean=T)
 
 ## Install landscapeR (full path to the file, if not in the R working directory)
-install.packages("~/landscapeR_1.2.tar.gz", repos = NULL, type="source")
+install.packages("~/landscapeR_1.2.1.tar.gz", repos = NULL, type="source")
 
 ## Load package
 library(landscapeR)

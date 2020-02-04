@@ -1,3 +1,10 @@
+landscapeR v1.2.1 (Release date: 2020-02-05)
+-----------------------------------------------
+CHANGES:
+
+* Added Ecological Applications paper citation
+
+
 landscapeR v1.2 (Release date: 2017-07-05)
 -----------------------------------------------
 CHANGES:
