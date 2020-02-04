@@ -4,6 +4,7 @@ This package is aimed at simulating categorical landscapes on actual geographica
 
 URL: https://cran.r-project.org/package=landscapeR  
 Reference manual: [landscapeR.pdf](https://cran.r-project.org/web/packages/landscapeR/landscapeR.pdf)
+
 Citation: Thomas, A., Masante, D., Jackson, B., Cosby, B., Emmett, B., Jones, L. (2020). Fragmentation and thresholds in hydrological flow-based ecosystem services. Ecological Applications. https://doi.org/10.1002/eap.2046
 
 To install, open a R session and select 'landscapeR' from the packages list, or type in the console:
