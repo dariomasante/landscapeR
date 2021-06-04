@@ -11,7 +11,6 @@
 #' There is a tolerance of +/- 3 cells from the patch size declared in \code{size} argument.
 #' @examples
 #' library(raster)
-#'
 #' m = matrix(0, 33, 33)
 #' r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 #' num = 5

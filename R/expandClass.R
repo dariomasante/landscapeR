@@ -8,7 +8,7 @@
 #' @return A RasterLayer object. If \code{rast=FALSE} returns a list of vectors, each containing the \code{context} cells assigned to each patch.
 #' @examples
 #' library(raster)
-#'
+#' 
 #' m = matrix(0, 33, 33)
 #' r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
 #' r = makeClass(r, 5, 10)

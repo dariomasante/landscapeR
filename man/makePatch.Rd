@@ -4,8 +4,15 @@
 \alias{makePatch}
 \title{Create a single patch}
 \usage{
-makePatch(context, size, spt = NULL, bgr = 0, edge = FALSE,
-  rast = FALSE, val = 1)
+makePatch(
+  context,
+  size,
+  spt = NULL,
+  bgr = 0,
+  edge = FALSE,
+  rast = FALSE,
+  val = 1
+)
 }
 \arguments{
 \item{context}{Raster object or matrix, an empty landscape raster or a mask indicating where the patch cannot be generated (see bgr below).}
