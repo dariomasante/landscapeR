@@ -4,6 +4,7 @@ Title: Categorical Landscape Simulation Facility
 Version: 1.2.1
 Date: 2021-06-05
 Authors@R: c(person(given = "Dario", family = "Masante", role = c("aut", "cre"), email = "dario.masante@gmail.com"))
+Maintainer: Dario Masante <dario.masante@gmail.com>
 Copyright: Natural Environment Research Council (NERC) and Centre for Ecology and Hydrology (CEH)
 URL: https://github.com/dariomasante/landscapeR
 BugReports: https://github.com/dariomasante/landscapeR/issues
