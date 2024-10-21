@@ -9,14 +9,15 @@
 #' @param direction numeric. The direction towards which the patch will point and grow, expressed in degrees between 0 and 360.
 #' @param convol numeric. Level of convolution to be assigned to the patch (default is \code{convol=0.5}). A value
 #' between 0 and 1, where 0 is no convolution at all (basically a straight line) and 1 is maximum convolution (i.e. tends to form a circular patch).
-#' @return A vector of raster cell numbers, or a RasterLayer object if \code{rast=TRUE}. If \code{edge=TRUE} a
+#' @return A vector of raster cell numbers, or a SpatRaster object if \code{rast=TRUE}. If \code{edge=TRUE} a
 #' list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
 #' @details For any values of \code{convol} > 0.8, no big differences are observed noted. Also direction is progressively lost
 #' as convolution increases.
 #' @examples
-#' library(raster)
+#' library(terra)
 #' r <- matrix(0,33,33)
-#' r <- raster(r, xmn=0, xmx=10, ymn=0, ymx=10)
+#' r <- rast(r)
+#' ext(r) = c(0, 10, 0, 10)
 #' plot(makeLine(r, size=50, spt = 545, direction=45, convol=0.05, rast=TRUE))
 #'
 #' @export
@@ -28,7 +29,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- .toCellIndex(context, spt)
     }
-    mtx <- t(raster::as.matrix(context))
+    mtx <- t(terra::as.matrix(context, wide=T))
   } else {
     mtx <- context
   }
@@ -79,7 +80,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     }
   }
   if(rast == TRUE) {
-    context[] <- t(mtx)
+    values(context) <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
     edgVal <- ifelse(val+1 == bgr, val+2, val+1)
@@ -101,7 +102,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- .toCellIndex(context, spt)
     }
-    mtx <- t(raster::as.matrix(context))
+    mtx <- t(terra::as.matrix(context, wide=T))
   } else {
     mtx <- context
   }
@@ -149,7 +150,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     }
   }
   if(rast == TRUE) {
-    context[] <- t(mtx)
+    values(context) <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
     if(val+1 == bgr){
