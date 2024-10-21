@@ -29,7 +29,9 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- .toCellIndex(context, spt)
     }
-    mtx <- t(terra::as.matrix(context, wide=T))
+    #----- LEM: the as.numeric is required for type matching in Rcpp ---------#
+    mtx <- terra::as.matrix(context, wide=T)
+    mtx <- t(matrix(as.numeric(mtx), ncol=ncol(mtx), nrow=nrow(mtx)))
   } else {
     mtx <- context
   }
@@ -102,7 +104,9 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
       }
       spt <- .toCellIndex(context, spt)
     }
-    mtx <- t(terra::as.matrix(context, wide=T))
+    #----- LEM: the as.numeric is required for type matching in Rcpp ---------#
+    mtx <- terra::as.matrix(context, wide=T)
+    mtx <- t(matrix(as.numeric(mtx), ncol=ncol(mtx), nrow=nrow(mtx)))
   } else {
     mtx <- context
   }

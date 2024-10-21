@@ -44,7 +44,9 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
       }
       spt <- .toCellIndex(context, spt)
     }
-    mtx <- t(terra::as.matrix(context, wide=T))
+    #----- LEM: the as.numeric is required for type matching in Rcpp ---------#
+    mtx <- terra::as.matrix(context, wide=T)
+    mtx <- t(matrix(as.numeric(mtx), ncol=ncol(mtx), nrow=nrow(mtx)))
     warningSwitch <- TRUE
   } else {
     mtx <- context

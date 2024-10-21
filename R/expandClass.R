@@ -32,9 +32,13 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
   if(class %in% bgr){ warning('Value to attribute to patches same as background cells value (arg. "class" equals "bgr").') }
   if(any(is.na(size) | size <=0)){ stop('Invalid "size" argument provided.') }
   bd <- terra::boundaries(context, inner=FALSE, classes=TRUE, directions=8)
-  bd <- t(terra::as.matrix(bd, wide=T))
+  #----- LEM: the as.numeric is required for type matching in Rcpp -----------#
+  bd <- terra::as.matrix(bd, wide=T)
+  bd <- t(matrix(as.numeric(bd), ncol=ncol(bd), nrow=nrow(bd)))
   if(!is.matrix(context)) {
-    mtx <- t(terra::as.matrix(context, wide=T))
+    #----- LEM: the as.numeric is required for type matching in Rcpp ---------#
+    mtx <- terra::as.matrix(context, wide=T)
+    mtx <- t(matrix(as.numeric(mtx), ncol=ncol(mtx), nrow=nrow(mtx)))
   } else {
     mtx <- context
   }

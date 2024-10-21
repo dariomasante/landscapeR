@@ -36,7 +36,9 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
     edge=FALSE
     warning('Edge output reset to FALSE. edge=TRUE only when raster output is not required (i.e. rast=FALSE)')
   }
-  mtx <- t(terra::as.matrix(context, wide=T))
+  #----- LEM: the as.numeric is required for type matching in Rcpp -----------#
+  mtx <- terra::as.matrix(context, wide=T)
+  mtx <- t(matrix(as.numeric(mtx), ncol=ncol(mtx), nrow=nrow(mtx)))
   if(length(size)==1){
     size <- rep(size, npatch)
   }
