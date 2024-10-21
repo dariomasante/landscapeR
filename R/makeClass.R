@@ -27,8 +27,8 @@
 #' @export
 makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast=TRUE, val=1){
   if(length(npatch) != 1){ stop('A single integer value must be provided to argument "npatch"') }
-  if(length(val) > 1){ stop('A single value only is admitted for "val" argument.') }
-  if(val %in% bgr){ warning('Value to attribute to patches same as background cells value (arg. "val" equals "bgr").') }
+  if(length(val) > 1 && length(val) != npatch){ stop('The "val" argument must either be of length 1 or npatch.') }
+  if(any(val %in% bgr)){ warning('Value to attribute to patches same as background cells value (arg. "val" equals "bgr").') }
   if(length(size) != npatch & length(size) > 1){ stop('Number of patches not matching the length of size vector') }
   if(any(is.na(size) | size <=0)){ stop('Invalid "size" argument provided.') }
   if(npatch <= 0 | npatch > ncell(context) | is.na(npatch)) { stop('Invalid number of patches required (e.g. more than available landscape cells). Check argument "npatch".') }
@@ -42,6 +42,12 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
   if(length(size)==1){
     size <- rep(size, npatch)
   }
+
+  #----- LEM: If val is single, expand to npatch -----------------------------#
+  if (length(val) == 1) {
+    val = rep(val, npatch)
+  }
+
   bgrCells <- which(is.element(mtx, bgr))
   if(length(bgrCells) == 0){
     stop('No background cells available with value ', bgr, '. Try checking argument "bgr".')
@@ -70,7 +76,7 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
   }
   lst <- list()
   for(np in 1:npatch){
-    l <- makePatch(context=mtx, spt=pts[np], size=size[np], bgr=bgr, edge=edge, val=val, rast = FALSE)
+    l <- makePatch(context=mtx, spt=pts[np], size=size[np], bgr=bgr, edge=edge, val=val[np], rast = FALSE)
     if(edge==TRUE){
       eg <- l[[2]]
       l <- l[[1]]
@@ -78,10 +84,12 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
     } else {
       lst[[np]] <- l
     }
-    .assignValues(val, l, mtx) #mtx[l] <- val
+    .assignValues(val[np], l, mtx) #mtx[l] <- val
   }
   if(rast == TRUE) {
-    context[unlist(lst)] <- val
+    for(np in 1:npatch){
+      context[unlist(lst[[np]])] <- val[np]
+    }
     return(context)
   } else {
     return(lst)
