@@ -1,7 +1,8 @@
-library(raster)
+library(terra)
 library(landscapeR)
 m = matrix(1, 33, 33)
-r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r = rast(m)
+ext(r) = c(0, 10, 0, 10)
 r = makePatch(r, size=600, spt=545, rast=TRUE, bgr=1, val=0)
 r[r == 1] = NA; plot(r)
 
@@ -117,20 +118,21 @@ plot(makeLine(r, 30, rast=TRUE, val=3, bgr=1)) ## Throws warning
 
 
 ################# RM SINGLE
-FIX = Error in if (all(.subset(vval, ad) != .subset(vval, pt))) { : 
-    missing value where TRUE/FALSE needed
+# FIX = Error in if (all(.subset(vval, ad) != .subset(vval, pt))) { :
+#     missing value where TRUE/FALSE needed
 
-  
-  
+
+
 #################
 ## Create linear features randomly
-r = matrix(0,50,50); r = raster::raster(r, xmn=0, xmx=10, ymn=0, ymx=10)
+r = matrix(0,50,50); r = rast(r)
+ext(r) = c(0, 10, 0, 10)
 s = 1275#sample(length(r),1)
 r[s] = 1
 size = 100
 cg = s
 while(length(cg) < size){
-  ad = raster::adjacent(r,s,pairs=FALSE,directions=4)
+  ad = terra::adjacent(r,s,pairs=FALSE,directions=4)
   d = ad[!ad %in% cg]
   if(length(d) == 1) {
     s = d
@@ -144,7 +146,7 @@ while(length(cg) < size){
   cg = c(cg, d) ##cg = c(cg, s) ##  to have a 1 cell line (but fix as is less than size)
 }
 r[cg] = 1
-raster::plot(r); length(which(raster::getValues(r)==1))
+plot(r); length(which(raster::getValues(r)==1))
 
 ################ TEST .direction parameters:
 #% library(ggplot2); library(reshape2)
