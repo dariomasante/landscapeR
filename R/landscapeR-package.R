@@ -20,9 +20,10 @@
 #' \item{\code{\link{rmSingle}} removes single tones from patches and background.}
 #' }
 #' @details Check out the vignette illustrating the use of landscapeR.\cr
-#' Also: \url{https://github.com/dariomasante/landscapeR}
-#' @docType package
+#' Also: \url{https://github.com/dariomasante/landscapeR} for original version
+#' \url{https://github.com/Forest-Futures-Lab/landscapeR} for this version
+#' @docType _PACKAGE
 #' @name landscapeR-package
 #' @aliases landscapeR
-#' @author Dario Masante
+#' @author Dario Masante and Lora Murphy
 NULL

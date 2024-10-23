@@ -13,16 +13,17 @@ vignette: |
 ---
 
 This is a quick tutorial to the use of package "landscapeR". In the following exercise, a landscape will be created from scratch and functionalities available in landscapeR will be used to simulate patterns of patches of different classes (could be habitats, land use types, etc.).
-All basic GIS operations are handled by the [`raster`](https://cran.r-project.org/package=raster) package.
+All basic GIS operations are handled by the [`terra`](https://cran.r-project.org/package=terra) package.
 
 Let's start loading the package and making an empty landscape (by transforming a matrix into a geographical object):
 
 ```{r, message=FALSE, warning=FALSE}
 library(landscapeR)
 
-library(raster)
+library(terra)
 m = matrix(0, 50, 50)
-r = raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r = rast(m)
+ext(r) = c(0, 10, 0, 10)
 ```
 
 
