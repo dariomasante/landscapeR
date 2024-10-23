@@ -210,9 +210,10 @@ Thomas A., Masante D., Jackson B., Cosby B., Emmett B., Jones L. (2020). Fragmen
 <p>Below it follows a set of examples, using landscapeR functions to generate various landscape configurations. Let&#39;s start loading the required packages and making an empty landscape (by transforming a matrix into a raster a geographical object of class RasterLayer):</p>
 
 <pre><code class="r">library(landscapeR)
-library(raster)
+library(terra)
 m &lt;- matrix(0, 33, 33)
-r &lt;- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r &lt;- rast(m)
+ext(r)&lt;- c(0, 10, 0, 10)
 </code></pre>
 
 <h3><code>makePatch</code></h3>
@@ -328,7 +329,8 @@ plot(rex)
 <p>This function can be used to mimic shapes, by providing a skeleton:</p>
 
 <pre><code class="r">m[,17] &lt;- 1
-r &lt;- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r &lt;- rast(m)
+ext(r) &lt;- c(0, 10, 0, 10)
 par(mfrow=c(1,2))
 plot(r)
 rr &lt;- expandClass(r, 1, 200)
@@ -342,7 +344,8 @@ plot(rr)
 <p>Creates a linear feature, at a given convolution level and direction in degrees (zero is North)</p>
 
 <pre><code class="r">m[] &lt;- 0
-r &lt;- raster(m, xmn=0, xmx=10, ymn=0, ymx=10)
+r &lt;- rast(m)
+ext(r) &lt;- c(0, 10, 0, 10)
 rr &lt;- makeLine(r, size=50, spt = 545, direction=45, convol=0.05, val=2, rast=TRUE)
 plot(rr)
 </code></pre>
@@ -352,7 +355,8 @@ plot(rr)
 <p>In combination with <code>expandClass</code> anisotropic features or landscapes can be created:</p>
 
 <pre><code class="r">rr &lt;- matrix(0,100,100)
-rr &lt;- raster(rr, xmn=0, xmx=10, ymn=0, ymx=10)
+rr &lt;- rast(rr)
+ext(rr) &lt;- c(0, 10, 0, 10)
 for(i in c(550, 3050, 5050, 7550)){
   rr = makeLine(rr, size=50, rast=TRUE, spt=i, direction=135, convol=0.25) 
 }

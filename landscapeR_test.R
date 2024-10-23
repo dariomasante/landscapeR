@@ -146,7 +146,7 @@ while(length(cg) < size){
   cg = c(cg, d) ##cg = c(cg, s) ##  to have a 1 cell line (but fix as is less than size)
 }
 r[cg] = 1
-plot(r); length(which(raster::getValues(r)==1))
+plot(r); length(which(values(r)==1))
 
 ################ TEST .direction parameters:
 #% library(ggplot2); library(reshape2)

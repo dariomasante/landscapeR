@@ -6,7 +6,7 @@
 #' @param spt integer or matrix. The seed point location around which the patch is generated (a random point is given by default). It can be an integer, as index of the cell in the raster, or a two columns matrix indicating x and y coordinates (an integer vector of length 2 is accepted too).
 #' @param bgr integer. A single value of background cells, where a patch can be generated (default is zero). Cells/classes which cannot be changed must have a different value.
 #' @param edge logical. Should the vector of edge cells of the patch be returned?
-#' @param rast logical. If TRUE returns a Raster object, otherwise a vector of cell numbers where the patch occurs
+#' @param rast logical. If TRUE returns a SpatRaster object, otherwise a vector of cell numbers where the patch occurs
 #' @param val integer. The value to be assigned to patch cells, when \code{rast=TRUE}
 #' @return A vector of raster cell numbers, or a SpatRaster object if \code{rast=TRUE}. If \code{edge=TRUE} a
 #' list of two vectors is returned: one for the inner raster cells and the second for cells at the edge of the patch.
