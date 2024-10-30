@@ -1,3 +1,10 @@
+landscapeR v1.3 (Release date: 2024-10-31)
+-----------------------------------------------
+CHANGES:
+* use package terra instead of raster
+* Fixing data types for Rcpp
+* Added options for vector value to makeClass
+
 landscapeR v1.2.1 (Release date: 2020-02-05)
 -----------------------------------------------
 CHANGES:

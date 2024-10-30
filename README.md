@@ -1,8 +1,5 @@
 # landscapeR
 A landscape simulator for R. 
-
-This has been updated by Lora Murphy to be compatible with the terra package, and to add additional features. Original package logic still wholly credited to Dario Masante.
-
 This package is aimed at simulating categorical landscapes on actual geographical realms, starting from either empty landscapes or landscapes provided by the user (e.g. land use maps). The purpose is to provide a tool to tweak or create the landscape while retaining a high degree of control on its features, without the hassle of specifying each location attribute. In this it differs from other tools which generate null or neutral landscape in a theorethical space. All basic GIS operations are handled by the [raster](https://cran.r-project.org/package=raster) package.
 
 URL: https://cran.r-project.org/package=landscapeR  
@@ -10,28 +7,21 @@ Reference manual: [landscapeR.pdf](https://cran.r-project.org/web/packages/lands
 
 Citation: Thomas, A., Masante, D., Jackson, B., Cosby, B., Emmett, B., Jones, L. (2020). Fragmentation and thresholds in hydrological flow-based ecosystem services. Ecological Applications. https://doi.org/10.1002/eap.2046
 
-This version of this package is NOT available on CRAN. To install, use devtools:
-
+To install, open a R session and select 'landscapeR' from the packages list, or type in the console:
 ```r
-install.packages("devtools")
-devtools::install_github("Forest-Futures-Lab/landscapeR")
+install.packages("landscapeR")
 ```
+Alternatively to install from source:
+- download the [source file (.tar.gz)](https://cran.r-project.org/package=landscapeR) to the R working directory (or any other directory)
+- start an R session
+- run the following commands in the console:
+``` r
+## Install the required packages 
+install.packages("raster", dependencies=T, clean=T)
 
-Without devtools, download the source code. Open an R session and navigate to the directory containing the source code. Use the following command in R:
-```r
-install.packages("landscapeR", repos=NULL, type="source")
+## Install landscapeR (full path to the file, if not in the R working directory)
+install.packages("~/landscapeR_1.3.tar.gz", repos = NULL, type="source")
 ```
-
-If you need to remove an existing install of the package:
-
-```r
-remove.packages("landscapeR")
-```
-
-## Load package
-library(landscapeR)
-```
-
 Here it follows a set of examples, using landscapeR functions to generate various landscape configurations. 
 Similar examples are showed in the [vignette](http://htmlpreview.github.com/?https://github.com/dariomasante/landscapeR/blob/master/landscapeR.html).
 Let's start loading the required packages and making an empty landscape (by transforming a matrix into a geographical obkect):

@@ -29,7 +29,7 @@ library(landscapeR)
 library(terra)
 m <- matrix(0, 33, 33)
 r <- rast(m)
-ext(r) <- c(0, 10, 0, )
+ext(r) <- c(0, 10, 0, 10)
 ```
 
 ### `makePatch`
