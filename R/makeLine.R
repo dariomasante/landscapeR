@@ -82,7 +82,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     }
   }
   if(rast == TRUE) {
-    values(context) <- t(mtx)
+    terra::values(context) <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
     edgVal <- ifelse(val+1 == bgr, val+2, val+1)
@@ -154,7 +154,7 @@ makeLine <- function(context, size, direction=NULL, convol=0.5, spt=NULL, bgr=0,
     }
   }
   if(rast == TRUE) {
-    values(context) <- t(mtx)
+    terra::values(context) <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
     if(val+1 == bgr){

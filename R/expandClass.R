@@ -96,6 +96,6 @@ expandClass <- function(context, class, size, bgr=0, pts = NULL) {
 #    mtx[p_bgr[id]] <- vals[id]
     mtx[.subset(p_bgr, id)] <- .subset(vals, id)
   }
-  values(context) <- t(mtx)
+  terra::values(context) <- t(mtx)
   return(context)
 }

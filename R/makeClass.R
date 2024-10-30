@@ -31,7 +31,7 @@ makeClass <- function(context, npatch, size, pts = NULL, bgr=0, edge=FALSE, rast
   if(any(val %in% bgr)){ warning('Value to attribute to patches same as background cells value (arg. "val" equals "bgr").') }
   if(length(size) != npatch & length(size) > 1){ stop('Number of patches not matching the length of size vector') }
   if(any(is.na(size) | size <=0)){ stop('Invalid "size" argument provided.') }
-  if(npatch <= 0 | npatch > ncell(context) | is.na(npatch)) { stop('Invalid number of patches required (e.g. more than available landscape cells). Check argument "npatch".') }
+  if(npatch <= 0 | npatch > terra::ncell(context) | is.na(npatch)) { stop('Invalid number of patches required (e.g. more than available landscape cells). Check argument "npatch".') }
   if(rast==TRUE & edge==TRUE){
     edge=FALSE
     warning('Edge output reset to FALSE. edge=TRUE only when raster output is not required (i.e. rast=FALSE)')

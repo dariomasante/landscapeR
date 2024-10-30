@@ -62,7 +62,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
   if(is.null(spt)){
     spt <- sample(bgrCells, 1)
   }
-  if(spt > ncell(context) | spt < 1 | spt %% 1 != 0){
+  if(spt > terra::ncell(context) | spt < 1 | spt %% 1 != 0){
     stop('Seed point not valid. Must be an integer between 1 and the total number of cells of "context".')
   }
   if(.subset(mtx, spt) != bgr){ #mtx[spt] != bgr
@@ -101,7 +101,7 @@ makePatch <- function(context, size, spt=NULL, bgr=0, edge=FALSE, rast=FALSE, va
     #Rcpp::checkUserInterrupt()
   }
   if(rast == TRUE) {
-    values(context) <- t(mtx)
+    terra::values(context) <- t(mtx)
     return(context)
   } else if (edge == TRUE) {
     if(val+1 == bgr){

@@ -52,7 +52,7 @@ rmSingle <- function(rst, rm = TRUE){
     }
   }
   if(rm == TRUE){
-    values(rst) <- vval
+    terra::values(rst) <- vval
     return(rst)
   } else {
     return(singles)
