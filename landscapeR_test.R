@@ -101,7 +101,6 @@ plot(makeLine(r, 30, rast=TRUE, val=3))
 plot(makeLine(r, 30, rast=TRUE, direction=90))
 
 plot(makeLine(r, 30, rast=TRUE, convol=0.05))
-plot(makeLine(r, 30, rast=TRUE, spt=664))
 plot(makeLine(r, 30, rast=TRUE, edge=TRUE))
 plot(makeLine(r, 1, rast=TRUE))
 makeLine(r, 30, edge=TRUE)
@@ -112,6 +111,7 @@ makeLine(r, 30, spt=445)
 plot(makeLine(r, NA, rast=TRUE)) # Add error message
 
 ## FIX
+plot(makeLine(r, 30, rast=TRUE, spt=664))
 plot(makeLine(r, 0, rast=TRUE))
 plot(makeLine(r, 30, rast=TRUE, val=3, bgr=c(NA,0)))
 plot(makeLine(r, 30, rast=TRUE, val=3, bgr=1)) ## Throws warning
